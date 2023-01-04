@@ -31,10 +31,10 @@ int main(void) {
         lower_left_corner = origin;
         vec3_scale(&midh, 0.5);
         vec3_scale(&midv, 0.5);
-        vec3_sub(&lower_left_corner, &midh);
-        vec3_sub(&lower_left_corner, &midv);
+        vec3_sub(&lower_left_corner, midh);
+        vec3_sub(&lower_left_corner, midv);
         vec3_init(&fl3, 0, 0, FOCAL_LENGTH);
-        vec3_sub(&lower_left_corner, &fl3);
+        vec3_sub(&lower_left_corner, fl3);
     }
 
     printf("P3\n%d %d\n255\n", IMG_WIDTH, IMG_HEIGHT);
@@ -52,9 +52,9 @@ int main(void) {
                 struct vec3 uh = horizontal, vv = vertical, dir = lower_left_corner;
                 vec3_scale(&uh, u);
                 vec3_scale(&vv, v);
-                vec3_add(&dir, &uh);
-                vec3_add(&dir, &vv);
-                vec3_sub(&dir, &origin);
+                vec3_add(&dir, uh);
+                vec3_add(&dir, vv);
+                vec3_sub(&dir, origin);
                 ray_init(&ray, origin, dir);
             }
             pixel_color = ray_color(&ray);
