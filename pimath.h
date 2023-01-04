@@ -1,6 +1,12 @@
-#ifndef PMATH_H
-#define PMATH_H
+#ifndef PIMATH_H
+#define PIMATH_H
 
+#include <math.h>
+
+// Platform-Independent MATHematical functions
+// STUB Totally unimplemented
+
+/*
 // trunc
 float m_trunc(float f) {
     float ret;
@@ -24,6 +30,6 @@ float m_trunc(float f) {
 }
 
 // sqrt
+*/
 
-
-#endif
+#endif // PIMATH_H
