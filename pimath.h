@@ -32,4 +32,4 @@ float m_trunc(float f) {
 // sqrt
 */
 
-#endif // PIMATH_H
+#endif  // PIMATH_H

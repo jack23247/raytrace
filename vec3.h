@@ -3,6 +3,9 @@
 
 #include "pimath.h"
 
+#define VEC3_ZERO \
+    { .x = .0, .y = .0, .z = .0 }
+
 struct vec3 {
     double x, y, z;
 };
