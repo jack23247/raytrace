@@ -62,7 +62,7 @@ void vec3_sub(struct vec3* u, struct vec3 v) {
 
 /**
  * @brief Scales a vector by a constant (in place).
- * \f$u\leftarrow k*u\f$
+ * \f$u\leftarrow t*u\f$
  *
  * @param u The vector to be scaled.
  * @param t The scaling factor.
@@ -74,6 +74,14 @@ void vec3_scale(struct vec3* u, double t) {
     u->z *= t;
 }
 
+/**
+ * @brief Multiplies the components of a vector by the components of another.
+ * \f$w_x\leftarrow u_x\times v_x$\f
+ *
+ * @param dest
+ * @param u
+ * @param v
+ */
 void vec3_mul(struct vec3* dest, struct vec3 u, struct vec3 v) {
     assert(dest != NULL);
     dest->x = u.x * v.x;
@@ -81,11 +89,24 @@ void vec3_mul(struct vec3* dest, struct vec3 u, struct vec3 v) {
     dest->z = u.z * v.z;
 }
 
+/**
+ * @brief
+ *
+ * @param u
+ * @param v
+ * @return
+ */
 double vec3_dot(struct vec3 u, struct vec3 v) {
     return u.x * v.x + u.y * v.y + u.z * v.z;
 }
 
-
+/**
+ * @brief
+ *
+ * @param dest
+ * @param u
+ * @param v
+ */
 void vec3_cross(struct vec3* dest, struct vec3 u, struct vec3 v) {
     assert(dest != NULL);
     dest->x = (u.y * v.z) - (u.z * v.y);
@@ -93,14 +114,33 @@ void vec3_cross(struct vec3* dest, struct vec3 u, struct vec3 v) {
     dest->z = (u.x * v.y) - (u.y * v.x);
 }
 
+/**
+ * @brief
+ *
+ * @param u
+ * @return
+ */
 double vec3_norm2(struct vec3 u) {
     return vec3_dot(u, u);
 }
 
+/**
+ * @brief
+ *
+ * @param u
+ * @return
+ */
 double vec3_norm(struct vec3 u) {
     return sqrt(vec3_norm2(u));
 }
 
+
+/**
+ * @brief
+ *
+ * @param dest
+ * @param u
+ */
 void vec3_unit(struct vec3* dest, struct vec3 u) {
     vec3_copy(dest, u);
     vec3_scale(dest, 1/vec3_norm(*dest));

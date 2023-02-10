@@ -1,7 +1,3 @@
-//
-// Created by quartz on 1/5/23.
-//
-
 #include "viewport.h"
 
 struct vec3 origin = VEC3_ZERO;
