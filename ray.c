@@ -33,15 +33,25 @@ struct vec3 ray_at(const struct ray* ray, double t) {
 struct vec3 ray_color(const struct ray* ray) {
     assert(ray != NULL);
     // Check if a sphere is intersected
-    struct vec3 c0 = PPM_COLOR_RED;
-    struct vec3 sphere_center = { .x = .0, .y = 0, .z = -1.0 };
-    if (ray_hit_sphere(sphere_center, 0.5, ray))
-        return c0;
+    //struct vec3 c0 = INIT_COLOR_RED;
+    struct vec3 sphere_center = { .x = .0, .y = .0, .z = -1.0 };
+    double t = ray_hit_sphere(sphere_center, 0.5, ray);
+    if (t > .0) {
+        struct vec3 work = ray_at(ray, t);
+        vec3_unit(&work, ray->dir);
+        vec3_sub(&work, sphere_center);
+        //vec3 N = vec3_unit(r.at(t) - vec3(0,0,-1));
+        //return 0.5*color(N.x()+1, N.y()+1, N.z()+1);
+        struct vec3 oneoneone = { .x = 1.0, .y = 1.0, .z = 1.0 };
+        vec3_add(&work, oneoneone);
+        vec3_scale(&work, 0.5);
+        return work;
+    }
     // Get a color based on the linear interpolation
     // of the vector's y coord (aka a vertical gradient)
-    double t;
-    struct vec3 c1 = PPM_COLOR_WHITE;
-    struct vec3 c2 = PPM_COLOR_BLUE;
+
+    struct vec3 c1 = INIT_COLOR_WHITE;
+    struct vec3 c2 = INIT_COLOR_BLUE;
     {
         struct vec3 work;
         vec3_unit(&work, ray->dir);
@@ -53,7 +63,7 @@ struct vec3 ray_color(const struct ray* ray) {
     return c1;
 }
 
-int ray_hit_sphere(struct vec3 center, double radius, const struct ray* r) {
+double ray_hit_sphere(struct vec3 center, double radius, const struct ray* r) {
     double a, b, c, d;
     struct vec3 work = r->orig;
     vec3_sub(&work, center);
@@ -61,7 +71,11 @@ int ray_hit_sphere(struct vec3 center, double radius, const struct ray* r) {
     b = 2.0 * vec3_dot(work, r->dir);
     c = vec3_dot(work, work) - radius * radius;
     d = b * b - 4 * a * c;
-    return (d > 0);
+    if (d < 0) {
+        return -1.0;
+    } else {
+        return (-b - sqrt(d)) / (2.0 * a);
+    }
 }
 
 void ray_cast(struct ray* ray, int xpos, int ypos) {
