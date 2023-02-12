@@ -74,6 +74,13 @@ void vec3_scale(struct vec3* u, double t) {
     u->z *= t;
 }
 
+void vec3_add_scalar(struct vec3* u, double t) {
+    assert(u != NULL);
+    u->x += t;
+    u->y += t;
+    u->z += t;
+}
+
 /**
  * @brief Multiplies the components of a vector by the components of another.
  * \f$w_x\leftarrow u_x\times v_x$\f

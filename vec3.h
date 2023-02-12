@@ -16,6 +16,7 @@ void vec3_copy(struct vec3* dest, struct vec3 u);
 void vec3_add(struct vec3* u, struct vec3 v);
 void vec3_sub(struct vec3* u, struct vec3 v);
 void vec3_scale(struct vec3* u, double t);
+void vec3_add_scalar(struct vec3* u, double t);
 
 void vec3_mul(struct vec3* dest, struct vec3 u, struct vec3 v);
 double vec3_dot(struct vec3 u, struct vec3 v);
