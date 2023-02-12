@@ -1,7 +1,9 @@
 #include "vec3.h"
 
-#include <stdio.h>
 #include <assert.h>
+#include <stdio.h>
+
+#include "openlibm/include/openlibm.h"
 
 /**
  * @brief Initializes a vec3 structure.
@@ -47,8 +49,8 @@ void vec3_add(struct vec3* u, struct vec3 v) {
 }
 
 /**
- * @brief Subtracts a vector from another, storing the difference into the first one.
- * \f$v\leftarrow v-w\f$
+ * @brief Subtracts a vector from another, storing the difference into the first
+ * one. \f$v\leftarrow v-w\f$
  *
  * @param u The first operand and destination of the operation.
  * @param v The second operand.
@@ -127,9 +129,7 @@ void vec3_cross(struct vec3* dest, struct vec3 u, struct vec3 v) {
  * @param u
  * @return
  */
-double vec3_norm2(struct vec3 u) {
-    return vec3_dot(u, u);
-}
+double vec3_norm2(struct vec3 u) { return vec3_dot(u, u); }
 
 /**
  * @brief
@@ -137,10 +137,7 @@ double vec3_norm2(struct vec3 u) {
  * @param u
  * @return
  */
-double vec3_norm(struct vec3 u) {
-    return sqrt(vec3_norm2(u));
-}
-
+double vec3_norm(struct vec3 u) { return sqrt(vec3_norm2(u)); }
 
 /**
  * @brief
@@ -150,5 +147,5 @@ double vec3_norm(struct vec3 u) {
  */
 void vec3_unit(struct vec3* dest, struct vec3 u) {
     vec3_copy(dest, u);
-    vec3_scale(dest, 1/vec3_norm(*dest));
+    vec3_scale(dest, 1 / vec3_norm(*dest));
 }

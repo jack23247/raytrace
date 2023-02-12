@@ -1,5 +1,13 @@
 #include "ray.h"
 
+#include <assert.h>
+#include <stddef.h>
+
+#include "scene.h"
+#include "viewport.h"
+
+#include "openlibm/include/openlibm.h"
+
 void ray_init(struct ray* ray, struct vec3 orig, struct vec3 dir) {
     assert(ray != NULL);
     ray->orig = orig;
@@ -22,18 +30,40 @@ struct vec3 ray_at(const struct ray* ray, double t) {
     return work;
 }
 
+void ray_cast(struct ray* ray, int xpos, int ypos) {
+    assert(ray != NULL);
+    struct vec3 work;
+    double v, u;
+    // ray r(origin, lower_left_corner + u*horizontal + v*vertical - origin);
+    u = xpos / (double)(IMG_WIDTH - 1);
+    v = ypos / (double)(IMG_HEIGHT - 1);
+    ray->dir = lower_left_corner;
+    work = horizontal;
+    vec3_scale(&work, u);
+    vec3_add(&ray->dir, work);
+    work = vertical;
+    vec3_scale(&work, v);
+    vec3_add(&ray->dir, work);
+    vec3_sub(&ray->dir, origin);
+}
+
 /**
- * @brief Derive a color based on what the ray hits. If an object is
- * intersected, the function will return the color of said object. If no object
- * is intersected, either the color of the sky or the floor will be returned.
+ * @brief Derive a color based on what the ray hits. The function iterates on
+ * the global scene and tries to determine whether an object is intersected.
+ * The first encountered object gets the precedence over the others (simulates
+ * Z-buffering if the objects are sorted according to their distance from the
+ * camera). If an object is intersected, the function will return the color of
+ * said object, according to its flags. If the ray does not intersect anything,
+ * the color of the sky will be returned. The sky is a linear interpolation
+ * (i.e. a gradient) between two colors (c1 and c2).
  *
  * @param ray
  * @return The color of the scene at the point where the ray intersects it.
  */
 struct vec3 ray_color(const struct ray* ray) {
     assert(ray != NULL);
-    struct object* cur = world;
-    assert(world != NULL);
+    struct object* cur = scene;
+    assert(scene != NULL);
     double t;
     do {
         // Check if a sphere is intersected
@@ -54,32 +84,15 @@ struct vec3 ray_color(const struct ray* ray) {
     } while (cur != NULL);
     // Get a color based on the linear interpolation
     // of the vector's y coord (aka a vertical gradient)
-    struct vec3 c1 = INIT_COLOR_WHITE;
-    struct vec3 c2 = INIT_COLOR_BLUE;
+    struct vec3 bottom = SKY_BOTTOM;
+    struct vec3 top = SKY_TOP;
     {
         struct vec3 work;
         vec3_unit(&work, ray->dir);
         t = 0.5 * (work.y + 1.0);
     }
-    vec3_scale(&c1, 1.0 - t);
-    vec3_scale(&c2, t);
-    vec3_add(&c1, c2);
-    return c1;
-}
-
-void ray_cast(struct ray* ray, int xpos, int ypos) {
-    assert(ray != NULL);
-    struct vec3 work;
-    double v, u;
-    // ray r(origin, lower_left_corner + u*horizontal + v*vertical - origin);
-    u = xpos / (double)(IMG_WIDTH - 1);
-    v = ypos / (double)(IMG_HEIGHT - 1);
-    ray->dir = lower_left_corner;
-    work = horizontal;
-    vec3_scale(&work, u);
-    vec3_add(&ray->dir, work);
-    work = vertical;
-    vec3_scale(&work, v);
-    vec3_add(&ray->dir, work);
-    vec3_sub(&ray->dir, origin);
+    vec3_scale(&bottom, 1.0 - t);
+    vec3_scale(&top, t);
+    vec3_add(&bottom, top);
+    return bottom;
 }

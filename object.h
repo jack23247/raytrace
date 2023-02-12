@@ -1,8 +1,10 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include <stdint.h>
+
 #include "ray.h"
-#include "stddef.h"
+#include "vec3.h"
 
 typedef struct ray ray_t;
 typedef struct vec3 vec3_t;
@@ -20,7 +22,9 @@ struct object {
     uint8_t flags;
 };
 
-extern struct object* world;
+extern struct object* scene;
+
+// TODO allow for serializing and deserializing scenes
 
 double hit_sphere(const ray_t* r, vec3_t center, double params[]);
 

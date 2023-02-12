@@ -3,32 +3,10 @@
 
 #include "ppm.h"
 #include "ray.h"
-#include "vec3.h"
 #include "viewport.h"
-#include "object.h"
 
 // TODO write to file
 // TODO cli parameters
-
-struct object ground = {
-    .center = { .x = .0, .y = -100.5, .z = -1.0 },
-    .color = INIT_COLOR_GREEN,
-    .hit = &hit_sphere,
-    .params[0] = 100.0,
-    .flags = STANDARD,
-    .next = NULL
-};
-
-struct object my_sphere = {
-    .center = { .x = .0, .y = .0, .z = -1.0 },
-    .color = INIT_COLOR_WHITE,
-    .hit = &hit_sphere,
-    .params[0] = 0.5,
-    .flags = NORMALS,
-    .next = &ground
-};
-
-struct object* world = &my_sphere;
 
 int main(void) {
     struct vec3 pixel_color;

@@ -1,8 +1,6 @@
 #ifndef VEC3_H
 #define VEC3_H
 
-#include "openlibm/include/openlibm.h"
-
 #define VEC3_ZERO \
     { .x = .0, .y = .0, .z = .0 }
 
