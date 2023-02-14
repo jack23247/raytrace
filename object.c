@@ -2,7 +2,7 @@
 
 #include "openlibm/include/openlibm.h"
 
-double hit_sphere(const ray_t* r, vec3_t center, double params[]) {
+double hit_sphere(const ray_t* r, vec3_t center, const double params[]) {
     double radius = params[0];
     double a, hb, c, d;
     struct vec3 work = r->orig;

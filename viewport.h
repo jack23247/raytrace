@@ -1,3 +1,12 @@
+/**
+ * @file viewport.h
+ * @author Jacopo Maltagliati
+ * @date 14 Feb 2023
+ * @brief Defines the viewport of the scene and allows to customize the camera.
+ * @copyright Copyright (c) 2022-23, Jacopo Maltagliati.
+ * Released under the BSD 3-Clause License.
+ */
+
 #ifndef VIEWPORT_H
 #define VIEWPORT_H
 
@@ -18,6 +27,17 @@ extern struct vec3 horizontal;
 extern struct vec3 vertical;
 extern struct vec3 lower_left_corner;
 
+/**
+ * @brief Initializes a viewport, calculating the lower left corner as
+ * follows:
+ *
+ * \f$l\leftarrow O-\frac{h}{2}-\frac{v}{2}-[0,0,F]\f$
+ *
+ * Where:
+ * - \f$h\f$ is the width vector,
+ * - \f$v\f$ is the height vector,
+ * - and \f$F\f$ is the focal length.
+ */
 void viewport_init(void);
 
 #endif  // VIEWPORT_H

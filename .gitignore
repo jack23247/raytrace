@@ -2,3 +2,5 @@ openlibm/
 openlibm/*
 rt.*
 *.ppm
+docs/
+docs/*

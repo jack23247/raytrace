@@ -1,3 +1,12 @@
+/**
+ * @file main.c
+ * @author Jacopo Maltagliati
+ * @date 14 Feb 2023
+ * @brief Entry point for the raytracer.
+ * @copyright Copyright (c) 2022-23, Jacopo Maltagliati.
+ * Released under the BSD 3-Clause License.
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 

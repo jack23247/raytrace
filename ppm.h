@@ -1,3 +1,12 @@
+/**
+ * @file ppm.h
+ * @author Jacopo Maltagliati
+ * @date 14 Feb 2023
+ * @brief Utilities to work with PPM files.
+ * @copyright Copyright (c) 2022-23, Jacopo Maltagliati.
+ * Released under the BSD 3-Clause License.
+ */
+
 #ifndef PPM_H
 #define PPM_H
 

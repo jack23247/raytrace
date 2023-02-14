@@ -4,9 +4,9 @@ RCFLAGS = -O2 -march=native -DNDEBUG
 CFLAGS = -std=c99 -pedantic -I./openlibm/include -I./openlibm/src
 LDFLAGS = -L./openlibm -l:libopenlibm.a
 
-.PHONY: all debug release clean
+.PHONY: all debug release clean docs
 
-all: debug release
+all: debug release docs
 
 debug:
 	cc $(DCFLAGS) $(CFLAGS) $(SRCS) -o rt.debug $(LDFLAGS)
@@ -16,3 +16,7 @@ release:
 
 clean:
 	rm rt.*
+	rm -r docs/
+
+docs:
+	doxygen

@@ -47,19 +47,6 @@ void ray_cast(struct ray* ray, int xpos, int ypos) {
     vec3_sub(&ray->dir, origin);
 }
 
-/**
- * @brief Derive a color based on what the ray hits. The function iterates on
- * the global scene and tries to determine whether an object is intersected.
- * The first encountered object gets the precedence over the others (simulates
- * Z-buffering if the objects are sorted according to their distance from the
- * camera). If an object is intersected, the function will return the color of
- * said object, according to its flags. If the ray does not intersect anything,
- * the color of the sky will be returned. The sky is a linear interpolation
- * (i.e. a gradient) between two colors (c1 and c2).
- *
- * @param ray
- * @return The color of the scene at the point where the ray intersects it.
- */
 struct vec3 ray_color(const struct ray* ray) {
     assert(ray != NULL);
     struct object* cur = scene;

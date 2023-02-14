@@ -1,3 +1,12 @@
+/**
+ * @file scene.h
+ * @author Jacopo Maltagliati
+ * @date 14 Feb 2023
+ * @brief Describes a fixed scene.
+ * @copyright Copyright (c) 2022-23, Jacopo Maltagliati.
+ * Released under the BSD 3-Clause License.
+ */
+
 #ifndef SCENE_H
 #define SCENE_H
 
